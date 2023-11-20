@@ -1,5 +1,6 @@
 {
     "rust-analyzer.linkedProjects": [
+        "./exercise_2_a_little_cpp_in_rust/Cargo.toml",
         "./exercise_3_heapless/Cargo.toml",
     ]
 }
