@@ -71,8 +71,11 @@ fn main()-> anyhow::Result<()>{
 
     // Implement a new display interface based on a SPI driver
     // https://docs.rs/display-interface-spi/latest/display_interface_spi/
+    // https://esp-rs.github.io/esp-idf-hal/esp_idf_hal/spi/struct.SpiDeviceDriver.html
     // Hint: the pinconfiguration can be found in the comments at the top of this file
-    // Hint: user the NOCS version to make your life easier
+    // Hint: look up the docs of the SpiDeviceDriver
+    
+    //let di = SPIInterfaceNoCS::new();
     
 
     // Pass the display interface to the ST7789 Builder and init the Builder
