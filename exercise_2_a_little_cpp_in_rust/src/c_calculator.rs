@@ -1,14 +1,13 @@
 use super::calculator::Calculator;
 
-// There might be an attribute missing. Can the compiler help you?
-pub struct CppCalculator;
+pub struct CCalculator;
 
 /*
- * Something something C++?
+ * Something something C?
  * Make sure to define all functions you want to use!
  */
 
-impl Calculator for CppCalculator {
+impl Calculator for CCalculator {
     fn whothis(&self) {
         // Is this a little unsafe to do?
         todo!();
