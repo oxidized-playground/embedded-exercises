@@ -55,8 +55,16 @@ const TFT_WIDTH: u16 = 240;
 
 fn main()-> anyhow::Result<()>{
 
-    // Borrow the needed Peripherals and set the pins
+    // *Take* the needed Peripherals and set the pins
     // https://esp-rs.github.io/esp-idf-hal/esp_idf_hal/peripherals/struct.Peripherals.html
+    let peripherals = todo!();
+    let spi = todo!();
+    let mosi = todo!();
+    let sclk = todo!();
+    let cs   = todo!();
+    let dc   = todo!();
+    let rst  = todo!();
+    let bl   = todo!();
    
 
     println!("init peripherals completed...");
@@ -73,7 +81,8 @@ fn main()-> anyhow::Result<()>{
     let mut display = Builder::st7789(...)
         .with_display_size(TFT_WIDTH, TFT_HEIGHT)
         .with_orientation(Orientation::Landscape(true))
-        //Some .init is missing 🤔
+        //Some extra display options can be put here 🤔
+        .init(&mut Ets, Some(PinDriver::output(rst)?)) 
         .map_err(|e| anyhow::anyhow!("Display error: {:?}", e))?;
 
     
