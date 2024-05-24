@@ -7,7 +7,7 @@
 
 #include <cstdint>
 
-// you should "C" that there is something missing here
+extern "C" {
 
 namespace cpp_calculator {
 
@@ -22,5 +22,6 @@ uint32_t cpp_multiply(CppCalculator* calc, uint32_t x, uint32_t y);
 
 }
 
+}
 
 #endif //CPP_CALCULATOR_WRAPPER_H

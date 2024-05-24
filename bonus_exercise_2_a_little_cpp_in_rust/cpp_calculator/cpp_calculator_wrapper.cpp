@@ -5,7 +5,7 @@
 #include "cpp_calculator_wrapper.h"
 #include "cpp_calculator.h"
 
-// you should "C" that there is something missing here
+extern "C" {
 
 namespace cpp_calculator {
 
@@ -31,6 +31,8 @@ int32_t cpp_subtract(CppCalculator* calc, int32_t x, int32_t y) {
 
 uint32_t cpp_multiply(CppCalculator* calc, uint32_t x, uint32_t y) {
     return calc->multiply(x, y);
+}
+
 }
 
 }

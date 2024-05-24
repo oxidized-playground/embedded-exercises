@@ -5,8 +5,8 @@ fn main() {
 
     // Compile the wrapper C code so it can be used from Rust
     cc::Build::new()
-        .cpp(true)
-        .file("c_calculator/c_calculator.cpp")
+        .cpp(false)
+        .file("c_calculator/c_calculator.c")
         .compile("c_calculator");
 
     cc::Build::new()

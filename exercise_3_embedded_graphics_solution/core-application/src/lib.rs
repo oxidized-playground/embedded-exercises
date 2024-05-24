@@ -35,7 +35,7 @@ impl CoreApp {
         display: &mut D,
     ) -> Result<(), D::Error> {
         self.draw_logo(display)?;
-        //self.draw_text(display)?;
+        self.draw_text(display)?;
         Ok(())
     }
 
@@ -57,7 +57,17 @@ impl CoreApp {
         &mut self,
         display: &mut D,
         ) -> Result<(), D::Error> {
-            todo!()
+        let center = display.bounding_box().center();
+        let character_style = MonoTextStyle::new(&FONT_10X20, Rgb565::CSS_ORANGE);
+        let text_display = Text::with_alignment(
+            &self.text.as_str(),
+            center.x_axis()+ Point::new(60, 30),
+            character_style,
+            Alignment::Center,
+        );
+        text_display.draw(display)?;
+
+        Ok(())
     }
 
 }

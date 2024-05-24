@@ -55,49 +55,55 @@ const TFT_WIDTH: u16 = 240;
 
 fn main()-> anyhow::Result<()>{
 
-    // *Take* the needed Peripherals and set the pins
+    // Borrow the needed Peripherals and set the pins
     // https://esp-rs.github.io/esp-idf-hal/esp_idf_hal/peripherals/struct.Peripherals.html
-    let peripherals = todo!();
-    let spi = todo!();
-    let mosi = todo!();
-    let sclk = todo!();
-    let cs   = todo!();
-    let dc   = todo!();
-    let rst  = todo!();
-    let bl   = todo!();
-   
+    let peripherals = Peripherals::take().unwrap();
+    let spi = peripherals.spi2;
+    let mosi = peripherals.pins.gpio19;
+    let sclk = peripherals.pins.gpio18;
+    let cs   = peripherals.pins.gpio5;
+    let dc   = peripherals.pins.gpio16;
+    let rst  = peripherals.pins.gpio23;
+    let bl   = peripherals.pins.gpio4;
 
     println!("init peripherals completed...");
 
-    // Implement a new display interface based on a SPI driver
+    // Initialize the SPI interface
     // https://docs.rs/display-interface-spi/latest/display_interface_spi/
-    // https://esp-rs.github.io/esp-idf-hal/esp_idf_hal/spi/struct.SpiDeviceDriver.html
-    // Hint: the pinconfiguration can be found in the comments at the top of this file
-    // Hint: look up the docs of the SpiDeviceDriver
-    
-    //let di = SPIInterfaceNoCS::new();
-    
+    let di = SPIInterfaceNoCS::new(
+        SpiDeviceDriver::new_single(
+            spi,
+            sclk,
+            mosi,
+            Option::<Gpio21>::None,
+            Some(cs),
+            &SpiDriverConfig::new().dma(Dma::Disabled),
+            &SpiConfig::new().baudrate(26.MHz().into()),
+        )?,
+        PinDriver::output(dc)?,
+    );
 
-    // Pass the display interface to the ST7789 Builder and init the Builder
+    // Initialize the display
     // https://docs.rs/mipidsi/0.7.1/mipidsi/
     // https://esp-rs.github.io/esp-idf-hal/esp_idf_hal/delay/index.html
-    let mut display = Builder::st7789(...)
+    let mut display = Builder::st7789(di)
         .with_display_size(TFT_WIDTH, TFT_HEIGHT)
         .with_orientation(Orientation::Landscape(true))
-        //Some extra display options can be put here 🤔
+        .with_invert_colors(mipidsi::ColorInversion::Inverted)
         .init(&mut Ets, Some(PinDriver::output(rst)?)) 
         .map_err(|e| anyhow::anyhow!("Display error: {:?}", e))?;
 
     
     // Configure the backlight pin (TFT_BL) to output and set the pin on HIGH
     // https://esp-rs.github.io/esp-idf-hal/esp_idf_hal/gpio/struct.PinDriver.html
-    //backlight
+    let mut backlight = PinDriver::output(bl)?;
+    backlight.set_high()?;
 
-    // Implement esp_display with CoreApp so we can use it to display Ferris! 
-    //esp_display
+    // Implement new CoreApp so we can use it to display Ferris! 
+    let mut esp_display = CoreApp::new();
 
     // The TTGO board's screen does not start at offset 0x0, and the physical size is 135x240
-    // You don't have to change this 🙂
+    // PS: you don't have to change this 🙂
     let top_left = Point::new(52, 52);
     let size = Size::new(TFT_WIDTH.into(), TFT_HEIGHT.into());
     
