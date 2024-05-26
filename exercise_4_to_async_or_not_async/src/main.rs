@@ -54,11 +54,11 @@ async fn press_button(mut button: AnyPin<Input<PullUp>>){
     log::error!("Button Pressed!");
 }
 
-/// Create another task here, log something periodically and see that it does not depend on the other task timer
+// Create another task here, log something periodically and see that it does not depend on the other task timer
 async fn my_new_task() {
 
 }
 
 
-/// (Optional and advanced)
-/// Make the tasks communicate via a Channel. Search online for "Sharing peripherals between tasks" to help you get started on sharing information between tasks.
+// (Optional and advanced)
+// Make the tasks communicate via a Channel. Search online for "Sharing peripherals between tasks" to help you get started on sharing information between tasks.
