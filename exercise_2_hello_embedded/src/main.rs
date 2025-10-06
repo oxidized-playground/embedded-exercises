@@ -1,37 +1,45 @@
+//! embassy hello world
+//!
+//! This is an example of running the embassy executor with multiple tasks
+//! concurrently.
+//! 
+//! Try to run this example via cargo run --release and see if your target gets rusty.
+//! 
+//! Additional work:
+//! Can you print your own text? Perhaps formatted and in a heapless string?
+
 #![no_std]
 #![no_main]
 
+use embassy_executor::Spawner;
+use embassy_time::{Duration, Timer};
 use esp_backtrace as _;
-use esp_hal::{clock::ClockControl, delay::Delay, peripherals::Peripherals, prelude::*};
+use esp_hal::timer::timg::TimerGroup;
+use esp_println as _;
 
-extern crate alloc;
-use core::mem::MaybeUninit;
+esp_bootloader_esp_idf::esp_app_desc!();
 
-#[global_allocator]
-static ALLOCATOR: esp_alloc::EspHeap = esp_alloc::EspHeap::empty();
-
-fn init_heap() {
-    const HEAP_SIZE: usize = 32 * 1024;
-    static mut HEAP: MaybeUninit<[u8; HEAP_SIZE]> = MaybeUninit::uninit();
-
-    unsafe {
-        ALLOCATOR.init(HEAP.as_mut_ptr() as *mut u8, HEAP_SIZE);
+#[embassy_executor::task]
+async fn run() {
+    loop {
+        defmt::info!("Hello world from embassy!");
+        Timer::after(Duration::from_millis(1_000)).await;
     }
 }
 
-#[entry]
-fn main() -> ! {
-    let peripherals = Peripherals::take();
-    let system = peripherals.SYSTEM.split();
+#[esp_hal_embassy::main]
+async fn main(spawner: Spawner) {
+    let peripherals = esp_hal::init(esp_hal::Config::default());
 
-    let clocks = ClockControl::max(system.clock_control).freeze();
-    let delay = Delay::new(&clocks);
-    init_heap();
+    defmt::info!("Init!");
 
-    esp_println::logger::init_logger_from_env();
+    let timg0 = TimerGroup::new(peripherals.TIMG0);
+    esp_hal_embassy::init(timg0.timer0);
+
+    spawner.spawn(run()).ok();
 
     loop {
-        log::info!("Hello Embedded!");
-        delay.delay(500.millis());
+        defmt::info!("Bing!");
+        Timer::after(Duration::from_millis(5_000)).await;
     }
 }
