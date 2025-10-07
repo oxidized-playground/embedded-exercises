@@ -1,3 +1,5 @@
+#![no_std]
+
 use embedded_graphics::{
     image::Image,
     mono_font::{
@@ -9,10 +11,11 @@ use embedded_graphics::{
     text::{Alignment, Text},
 };
 use tinybmp::Bmp;
+use heapless::String;
 
 pub struct CoreApp {
     logo: Bmp<'static, Rgb565>,
-    text: String,
+    text: String<50>,
 }
 
 impl Default for CoreApp {
@@ -26,7 +29,7 @@ impl CoreApp {
         CoreApp {
             logo: Bmp::from_slice(include_bytes!("../assets/ferris.bmp"))
                 .unwrap(),
-            text: String::from("Hi I'm Ferris!"),
+            text: String::try_from("Hi I'm Ferris!").unwrap(),
         }
     }
 
@@ -35,7 +38,7 @@ impl CoreApp {
         display: &mut D,
     ) -> Result<(), D::Error> {
         self.draw_logo(display)?;
-        // Enable this to draw the text
+        // Uncomment the following line to draw the text!
         // self.draw_text(display)?;
         Ok(())
     }
@@ -44,8 +47,9 @@ impl CoreApp {
         &mut self,
         display: &mut D,
     ) -> Result<(), D::Error> {
-        let center = display.bounding_box().center();
-        let logo_position = center.x_axis();
+        let display_center = display.bounding_box().center().x_axis();
+        let logo_center = self.logo.bounding_box().center().x_axis();
+        let logo_position = display_center - logo_center;
         let image = Image::new(&self.logo, logo_position);
         image.draw(display)?;
 
@@ -60,8 +64,9 @@ impl CoreApp {
         ) -> Result<(), D::Error> {
         let center = display.bounding_box().center();
         let character_style = MonoTextStyle::new(&FONT_10X20, Rgb565::CSS_ORANGE);
-        let text_display = Todo!();
-        text_display.draw(display)?;
+        let text_display = todo!();
+
+        // text_display.draw(display)?;
 
         Ok(())
     }
