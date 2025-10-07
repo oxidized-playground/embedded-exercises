@@ -1,4 +1,4 @@
-# embedded-exercises
+# embedded-exercises-solutions
 Repo for the second rust playground hosted by ALTEN
 
 ## 0. Introduction
@@ -15,9 +15,10 @@ Memory? Memory! But just a bit.. In this exercise you will work with lists and s
 
 Can you use heapless for all instances of standard library versions?
 
-## 2. Hello world
+## 2. Hello Embedded!
 
-Starting your embedded adventures, this exercise tests your environment and makes sure you can upload to the ESP32 board. Other than that, feel free to try some first rust code on de micro controller!
+Get ready to dive into the world of embedded programming with Rust! In this exercise, we'll build a standard 'hello' project and flash it onto an ESP32 board. Let's power up those circuits and get coding! Note: You don't have to change anything in this exercise, but you're free to do so!
+
 
 ## 3. Embedded graphics
 
@@ -26,20 +27,18 @@ Time to use your artistic skills and put it on hardware! Do you know Ferris? He 
 *Did you know* you can run your application on your desktop sharing most of the code base? Only the hardware layer is separated. 
 
 
-## 4. To async or not async
+## 4. To async or not to async
 
-Easy multitasking on a micro controller? This exercise takes you through the required steps to start asynchronous tasks and have them run concurrently.
+Welcome to the world of safe concurrency on embedded! Create your tasks and see for yourself how easy and safe it is to run things concurrently!
 
 
-# Bonus
-
-## 1. A little C and a little Rust
+## Optional: A little C and a little Rust
 
 Time for a blend! You are the proud owner of a large C code base. As you ponder whether this is viable for future work, your looking for options to include some Rust. One way is to create remote interfaces, have inter process communication or network based communication.
 
 Not today! What we will do is compile the new Rust additions into your C program. This allows you to introduce new code whilst you keep all precious years of history and battle tested code.
 
 
-## 2. A little Rust and a little C
+## Optional: A little Rust and a little C
 
 The other version of exercise 1. You have Rust, want more Rust, but are forced to include some C in there. This exercises creates external functions in C which you can link and use in Rust.
