@@ -5,8 +5,6 @@ Hello 👋,
 In this exercise we will show how you can setup projects which lets you develop for embedded and desktop targets.
 For the embedded device we're going to use a TTGO esp32.
 
-First make sure you have followed the environment setup!
-
 Exercise steps:
 1. First we're going to do a sanity check.Enter the `./desktop` folder and execute `cargo run` on the command line. This will show you the following:
 
