@@ -6,7 +6,7 @@ In this exercise we will show how you can setup projects which lets you develop 
 For the embedded device we're going to use a TTGO esp32.
 
 Exercise steps:
-1. First we're going to do a sanity check.Enter the `./desktop` folder and execute `cargo run` on the command line. This will show you the following:
+1. First we're going to do a sanity check.Enter the `./desktop` folder and execute `cargo run-wasm` on the command line. This will show you the following:
 
 ![image desktop](image-desktop-wasm.png)
 

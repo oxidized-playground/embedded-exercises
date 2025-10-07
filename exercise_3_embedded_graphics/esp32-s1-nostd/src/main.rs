@@ -107,7 +107,7 @@ async fn main(_spawner: Spawner) {
     let cs_output = Output::new(pin_chip_select, Level::High, config);
     let dc_output = Output::new(pin_spi_datacommand, Level::Low, config);
     let rst_output = Output::new(pin_reset, Level::High, config);
-    let backlight_output = todo!();
+    let backlight_output = todo!("Define new output that is default High");
 
     // Create a SpiDevice from the SpiBus implementation so that it can be used by the SpiInterface which uses the interafce:Interface trait
     // https://docs.rs/embedded-hal-bus/latest/embedded_hal_bus/spi/struct.ExclusiveDevice.html       
@@ -122,21 +122,17 @@ async fn main(_spawner: Spawner) {
     );
 
     // Initialize the display
-    // https://docs.rs/mipidsi/0.9.0/mipidsi/
     let mut delay = Delay::new();
     
     // The TTGO board's screen does not start at offset 0x0, and the physical size is 135x240, instead of 240x320
     // PS: you don't have to change this 🙂
+    // https://docs.rs/mipidsi/0.9.0/mipidsi/
     let mut display = mipidsi::Builder::new(ST7789, di)
         .reset_pin(rst_output)
         .display_size(TFT_WIDTH.into(), TFT_HEIGHT.into())
         .display_offset(52, 40)
         // TODO: But you will need to add extra settings to properly initialize your display 🙂
         .init(&mut delay).unwrap();
-
-    
-    // Configure the backlight pin (TFT_BL) to output and set the pin on HIGH
-    backlight_output = todo!();
 
 
     // Implement new CoreApp so we can use it to display Ferris! 
