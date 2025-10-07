@@ -89,7 +89,7 @@ fn main()-> anyhow::Result<()>{
     let mut display = Builder::st7789(di)
         .with_display_size(TFT_WIDTH, TFT_HEIGHT)
         .with_orientation(Orientation::Landscape(true))
-        .with_invert_colors(mipidsi::ColorInversion::Inverted)
+        // TODO: Find extra settings to properly initialize your display
         .init(&mut Ets, Some(PinDriver::output(rst)?)) 
         .map_err(|e| anyhow::anyhow!("Display error: {:?}", e))?;
 
@@ -110,8 +110,10 @@ fn main()-> anyhow::Result<()>{
     display.clear(Rgb565::WHITE).unwrap();
     
     loop{
-        esp_display.draw(&mut display.cropped(&Rectangle::new(top_left, size))).unwrap();      
+        // TODO: call the draw method on the CoreApp instance
      
         thread::sleep(Duration::from_millis(500));
     }
+
+    // Can you draw more things? Look into the core-application and be creative!
 }

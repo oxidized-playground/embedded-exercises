@@ -35,7 +35,8 @@ impl CoreApp {
         display: &mut D,
     ) -> Result<(), D::Error> {
         self.draw_logo(display)?;
-        self.draw_text(display)?;
+        // Enable this to draw the text
+        // self.draw_text(display)?;
         Ok(())
     }
 
@@ -59,16 +60,22 @@ impl CoreApp {
         ) -> Result<(), D::Error> {
         let center = display.bounding_box().center();
         let character_style = MonoTextStyle::new(&FONT_10X20, Rgb565::CSS_ORANGE);
-        let text_display = Text::with_alignment(
-            &self.text.as_str(),
-            center.x_axis()+ Point::new(60, 30),
-            character_style,
-            Alignment::Center,
-        );
+        let text_display = Todo!();
         text_display.draw(display)?;
 
         Ok(())
     }
+
+    // Additional:
+    // Implement a function to draw a shape of your choice
+    // https://docs.rs/embedded-graphics/latest/embedded_graphics/primitives/index.html
+    // fn draw_shape<D: embedded_graphics::draw_target::DrawTarget<Color=Rgb565>>(
+    //     &mut self,
+    //     display: &mut D,
+    // ) -> Result<(), D::Error> {
+    //     todo!();
+    //     Ok(())
+    // }
 
 }
 
