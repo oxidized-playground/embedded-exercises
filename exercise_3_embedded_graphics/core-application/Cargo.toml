@@ -1,10 +1,11 @@
 [package]
 name = "core-application"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-embedded-graphics = "0.8"
-tinybmp = "0.5"
+embedded-graphics = "0.8.1"
+tinybmp = "0.6"
+heapless = "0.9"

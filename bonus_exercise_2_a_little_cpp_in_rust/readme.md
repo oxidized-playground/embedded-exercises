@@ -6,6 +6,10 @@ library. The C++ library will be called from the main loop as seen in main.rs.
 In the build.rs (which gets called automatically when building Rust) you can see that the C++
 library will be built by cargo.
 
+# Hint
+
+- You only need to change things in src/c_calculator.rs and cpp_calculator.rs
+
 # How to compile me
 
 - cargo build

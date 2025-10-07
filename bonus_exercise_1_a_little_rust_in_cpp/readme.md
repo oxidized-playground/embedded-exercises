@@ -6,11 +6,15 @@ loop as seen in main.cpp.
 This project uses Corrosion-rs as an extension to CMake to build the Rust library from CMake.
 https://github.com/corrosion-rs/corrosion
 
+# Hint
+
+- You only need to change rust_calculator.cpp and rust_calculator/src/lib.rs
+
 # How to compile me
 
 Prerequisites: 
 
-Have CMake installed
+Have CMake installed: https://github.com/Kitware/CMake/releases/download/v4.1.2/cmake-4.1.2-windows-x86_64.msi
 Have a C++ compiler installed. (more than likely you already have this when you installed Rust)
 
 - cd to the root of the project
